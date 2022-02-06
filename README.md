@@ -14,7 +14,7 @@
     
 <h2> Common Code Files</h2>
 
-web.php and api.php (Handle Route)
+web.php and api.php (Handle Route)<br>
 app/Moldels Folder contain all Model php files
     
 <h3>Frontend Code Files</h3>
@@ -23,7 +23,7 @@ Home Controller is to show survey form with fields and save user answers.
 
 <h3>Api Code Files</h3>
 
-RegisterController is for new user register and login
+RegisterController is for new user register and login <br>
 SurveyController is to show survey forms and save answers
 
 <h2>Database Structure</h2>
