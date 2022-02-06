@@ -17,11 +17,11 @@
 web.php and api.php (Handle Route)
 app/Moldels Folder contain all Model php files
     
-Frontend Code Files
+<h3>Frontend Code Files</h3>
 
 Home Controller is to show survey form with fields and save user answers. 
 
-Api Code Files
+<h3>Api Code Files</h3>
 
 RegisterController is for new user register and login
 SurveyController is to show survey forms and save answers
@@ -29,7 +29,8 @@ SurveyController is to show survey forms and save answers
 <h2>Database Structure</h2>
     
    Required tables are already setup in database/migration.
-  1.forms table is to store survey form and fields table is for custom fields.
-  2.form_field table is pivot for forms and fields tables.
+    
+  1.forms table is to store survey form and fields table is for custom fields.<br>
+  2.form_field table is pivot for forms and fields tables.<br>
   3.user answers are stored in surveys table.
     
