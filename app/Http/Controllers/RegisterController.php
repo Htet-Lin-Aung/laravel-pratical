@@ -22,7 +22,8 @@ class RegisterController extends Controller
         
         return response()->json([
             'name' => $user->name,
-            'token' => $user->createToken('User-Token')->plainTextToken
+            'token' => $user->createToken('User-Token')->plainTextToken,
+            'token_type' => 'Bearer',
         ]);
     }
    
@@ -38,12 +39,27 @@ class RegisterController extends Controller
             return response()->json(['message' => 'Invalid Credentials'], 401);
         }
 
-        $user = auth()->user();
+        $user = User::where('email', $request['email'])->firstOrFail();
 
         return response()->json([
             'user' => $user,
-            'token' => $user->createToken('User-Token')->plainTextToken
+            'token' => $user->createToken('User-Token')->plainTextToken,
+            'token_type' => 'Bearer',
         ]);
+    }
+
+    /**
+     * Logout api
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function logout()
+    {
+        auth()->user()->tokens()->delete();
+
+        return [
+            'message' => 'You have successfully logged out and the token was successfully deleted'
+        ];
     }
 }
 

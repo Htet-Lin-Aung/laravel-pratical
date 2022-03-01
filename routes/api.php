@@ -19,7 +19,9 @@ use App\Http\Controllers\SurveyController;
 Route::post('register', [RegisterController::class, 'register']);
 Route::post('login', [RegisterController::class, 'login']);
 
-// Route::middleware('auth:sanctum')->group(function () {
+Route::middleware('auth:sanctum')->group(function () {
     Route::get('form', [SurveyController::class, 'list']);
     Route::post('survey', [SurveyController::class, 'survey']);
-// });
+
+    Route::post('/logout', [RegisterController::class, 'logout']);
+});
