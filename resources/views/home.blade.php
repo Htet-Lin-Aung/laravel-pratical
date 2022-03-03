@@ -30,7 +30,7 @@
                         @foreach($form->fields as $field)
                         <div class="row mb-3">
                             <div class="col-md-12">
-                                <label for="{{$field->name}}" class="col-md-4 col-form-label text-md-end">{{ $field->name }}</label>
+                                <label for="{{$field->name}}" class="col-form-label text-md-end">{{ $field->name }}</label>
                             </div>
                             <input type="hidden" name="form_id" value="{{$form->id}}">
 
@@ -46,7 +46,7 @@
                         </div>
                         @endforeach
                         <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
+                            <div class="col-md-12 offset-md-5">
                                 <button type="submit" class="btn btn-primary">
                                     Submit
                                 </button>
@@ -64,7 +64,7 @@
 
 @section('script')
     <script type="text/javascript">
-        $("#dob").datepicker({
+        $('input[type="datepicker"]').datepicker({
             format: "yyyy-mm-dd"
         });
     </script>
