@@ -5,24 +5,29 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Form;
 use App\Models\Survey;
-use App\Http\Requests\SurveyRequest;
+use App\Http\Requests\{SurveyRequest,SurveyFormRequest};
 use Notification;
 use App\Notifications\EmailNotification;
 
 class SurveyController extends Controller
 {
-    public function list()
+    public function surveyForm(SurveyFormRequest $request)
     {
-        $forms = Form::get();
-
-        $data = collect();
-        foreach ($forms as $form) {
-            $data->add([
-                'id'          => $form->id,
-                'name'        => $form->name,
-                'fields'      => $form->fields,
+        $form = Form::where('id',$request->form_id)->first();
+        if(!$form){
+            return response()->json([
+                'status' => 500,
+                'message' => 'Invalid request'
             ]);
         }
+
+        $data = collect();
+        $data->add([
+            'id'          => $form->id,
+            'name'        => $form->name,
+            'fields'      => $form->fields,
+        ]);
+
         return response()->json([
             'data' => $data,
         ]);
@@ -33,13 +38,12 @@ class SurveyController extends Controller
         $response = $this->checkAlreadyExist($request);
 
         if($response)
-        {
+        { 
             return response()->json([
                 'status' => 500,
                 'message' => 'You already answer this survey'
             ]);
         }             
-
         $responseCreate = $this->createSurvey($request);
         return response()->json($responseCreate);
     }
@@ -54,16 +58,8 @@ class SurveyController extends Controller
     public function createSurvey($request)
     {
         $form = Form::findOrFail($request->form_id);
-
-        foreach($form->fields as $field)
-        {
-            $data['user_id'] = auth()->id();
-            $data['form_id'] = $request->form_id;
-            $data['code'] = $field->code;
-            $data['answer'] = request($field->code);
-            
-            Survey::create($data);
-        }
+        
+        $form->surveys()->createMany($request->surveys);
 
         $user = auth()->user();
 

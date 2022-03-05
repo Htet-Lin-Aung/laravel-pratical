@@ -5,9 +5,8 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
-use App\Models\Form;
 
-class SurveyRequest extends FormRequest
+class SurveyFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,8 +26,7 @@ class SurveyRequest extends FormRequest
     public function rules()
     {
         return [
-            'form_id' => 'required',
-            'surveys' => 'required'
+            'form_id' => 'required'
         ];
     }
 

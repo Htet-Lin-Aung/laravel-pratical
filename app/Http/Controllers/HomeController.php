@@ -28,7 +28,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $forms = Form::get();
+        $form = Form::where('id',$request->form_id)->first();
+        if(!$form){
+            return response()->json([
+                'status' => 500,
+                'message' => 'Invalid request'
+            ]);
+        }
 
         return view('home',compact('forms'));
     }

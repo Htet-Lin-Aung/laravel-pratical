@@ -16,4 +16,9 @@ class Form extends Model
     {
         return $this->belongsToMany(Field::class,'form_field');
     }
+
+    public function surveys()
+    {
+        return $this->hasMany(Survey::class);
+    }
 }
