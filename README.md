@@ -26,6 +26,26 @@ Home Controller is to show survey form with fields and save user answers.
 RegisterController is for new user register and login <br>
 SurveyController is to show survey forms and save answers
 
+<h3>Api request sample for users' answers</h3>
+{
+    "surveys":[{
+            "code" : "name",  //form field name
+            "answer": "Name",
+            "user_id":1
+        },
+        {
+            "code" : "phone_number",  //form field name
+            "answer": "No",
+            "user_id":1
+        },
+        {
+            "code": "dob",  //form field name
+            "answer":"2022-03-05",
+            "user_id":1
+        }],
+    "form_id":1
+}
+
 <h2>Database Structure</h2>
     
    Required tables are already setup in database/migration.

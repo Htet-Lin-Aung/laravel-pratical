@@ -5,32 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Form;
 use App\Models\Survey;
-use App\Http\Requests\{SurveyRequest,SurveyFormRequest};
+use App\Http\Requests\{SurveyRequest};
 use Notification;
 use App\Notifications\EmailNotification;
+use App\Http\Resources\SurveyResource;
 
 class SurveyController extends Controller
 {
-    public function surveyForm(SurveyFormRequest $request)
+    public function surveyForm()
     {
-        $form = Form::where('id',$request->form_id)->first();
-        if(!$form){
-            return response()->json([
-                'status' => 500,
-                'message' => 'Invalid request'
-            ]);
-        }
-
-        $data = collect();
-        $data->add([
-            'id'          => $form->id,
-            'name'        => $form->name,
-            'fields'      => $form->fields,
-        ]);
-
-        return response()->json([
-            'data' => $data,
-        ]);
+        return SurveyResource::collection(Form::with('fields')->paginate(25));
     }
 
     public function survey(SurveyRequest $request)
