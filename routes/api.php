@@ -2,8 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\SurveyController;
+use App\Http\Controllers\API\RegisterController;
+use App\Http\Controllers\API\SurveyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,8 +20,6 @@ Route::post('register', [RegisterController::class, 'register']);
 Route::post('login', [RegisterController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('form', [SurveyController::class, 'surveyForm']);
-    Route::post('survey', [SurveyController::class, 'survey']);
-
+    Route::resource('survey',SurveyController::class);
     Route::post('/logout', [RegisterController::class, 'logout']);
 });

@@ -11,15 +11,7 @@ use App\Notifications\EmailNotification;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    
 
     /**
      * Show the application dashboard.
@@ -28,14 +20,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $form = Form::where('id',$request->form_id)->first();
-        if(!$form){
-            return response()->json([
-                'status' => 500,
-                'message' => 'Invalid request'
-            ]);
-        }
-
+        $forms = Form::paginate(25);
+        
         return view('home',compact('forms'));
     }
 
@@ -62,15 +48,7 @@ class HomeController extends Controller
     {
         $form = Form::findOrFail($request->form_id);
 
-        foreach($form->fields as $field)
-        {
-            $data['user_id'] = auth()->id();
-            $data['form_id'] = $request->form_id;
-            $data['code'] = $field->code;
-            $data['answer'] = request($field->code);
-            
-            Survey::create($data);
-        }
+        $form->surveys()->createMany($request);
 
         $user = auth()->user();
 

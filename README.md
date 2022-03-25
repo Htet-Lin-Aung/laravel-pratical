@@ -30,18 +30,15 @@ SurveyController is to show survey forms and save answers
 {
     "surveys":[{
             "code" : "name",  //form field name
-            "answer": "Name",
-            "user_id":1
+            "answer": "Name"
         },
         {
             "code" : "phone_number",  //form field name
-            "answer": "No",
-            "user_id":1
+            "answer": "No"
         },
         {
             "code": "dob",  //form field name
-            "answer":"2022-03-05",
-            "user_id":1
+            "answer":"2022-03-05"
         }],
     "form_id":1
 }
